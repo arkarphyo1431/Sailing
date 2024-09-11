@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from '../components/Navbar';
 
+
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col bg-gray-100">
@@ -17,6 +18,7 @@ export default function Home() {
             <Link href="/book" className="border border-x-y-8 hover:bg-yellow-600 hover:text-black text-white px-6 py-3 rounded-md text-lg font-semibold">
               Book Now
             </Link>
+
           </div>
         </div>
       </header>
