@@ -9,12 +9,12 @@ export default function Home() {
       <Navbar />
 
       {/* Hero Section */}
-      <header className="bg-cover bg-center h-96 relative" style={{ backgroundImage: `url('/cruise.jpg')` }}>
+      <header className="bg-cover bg-center h-96 relative" style={{ backgroundImage: `url('/cruise.jpeg')` }}>
         <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="text-center text-white">
             <h1 className="text-5xl font-bold mb-4">Welcome to Cruise Dinner Booking</h1>
             <p className="text-lg mb-6">Book an unforgettable dinner experience on our luxurious cruise.</p>
-            <Link href="/book" className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-3 rounded-full text-lg font-semibold">
+            <Link href="/book" className="border border-x-y-8 hover:bg-yellow-600 hover:text-black text-white px-6 py-3 rounded-md text-lg font-semibold">
               Book Now
             </Link>
           </div>
@@ -24,8 +24,8 @@ export default function Home() {
       {/* Featured Sections */}
       <main className="flex-1 container mx-auto px-4 py-8">
         <section className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Select Your Cruise Experience</h2>
-          <p className="text-lg text-gray-600 mb-6">Choose from our three luxury cruise floors and delightful meal options.</p>
+          <h2 className="text-3xl font-bold mb-4 text-black">Select Your Cruise Experience</h2>
+          <p className="text-lg text-black mb-6">Choose from our three luxury cruise floors and delightful meal options.</p>
         </section>
 
         <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
