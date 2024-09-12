@@ -5,16 +5,18 @@ export default function Navbar() {
     <nav className="bg-gray-800 text-white shadow-md">
       <div className="container mx-auto flex justify-between items-center p-4">
         <div className="text-2xl font-bold">
-          {/* <Link href="/" className="hover:underline">Cruise Dinner Booking</Link> */}
-          <h1 className='cursor-pointer'> Cruise Dinner Booking </h1>
+          <div className='cursor-pointer'>
+            <h1 className='inline-flex'> Sailing </h1>
+            <img src="/ship.png" alt="logo" className="h-8 w-8 inline" />
+          </div>
         </div>
-        <ul className="flex space-x-6">
-          <li><Link href="/" className="hover:underline">Home</Link></li>
-          <li><Link href="/book" className="hover:underline">Book</Link></li>
-          <li><Link href="/your_info" className="hover:underline">Your Info</Link></li>
-          <li><Link href="/your_info" className="hover:underline">News & Promotions</Link></li>
-          <li><Link href="/about" className="hover:underline">About</Link></li>
-          <li><Link href="/contact" className="hover:underline">Contact</Link></li>
+        <ul className="flex space-x-6 font-sans">
+          <li><Link href="/" className="hover:underline">HOME</Link></li>
+          <li><Link href="/book" className="hover:underline">BOOK</Link></li>
+          <li><Link href="/your_info" className="hover:underline">YOUR INFO</Link></li>
+          <li><Link href="/your_info" className="hover:underline">NEWS & PROMOTIONS</Link></li>
+          <li><Link href="/about" className="hover:underline">ABOUT</Link></li>
+          <li><Link href="/contact" className="hover:underline">CONTACT</Link></li>
         </ul>
       </div>
     </nav>

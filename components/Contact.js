@@ -10,7 +10,7 @@ export default function Contact() {
       <header className="w-full relative">
         <div className="bg-cover bg-center h-64 w-full relative" style={{ backgroundImage: `url('/header-image.jpg')` }}>
           <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-            <h1 className="text-5xl font-bold text-white">Contact Us</h1>
+            <h1 className="text-5xl font-bold text-white">CONTACT US</h1>
           </div>
         </div>
       </header>
@@ -18,8 +18,8 @@ export default function Contact() {
       {/* Help Desk and Contact Form Section */}
       <div className="flex flex-col md:flex-row justify-center mt-12 container mx-auto px-6">
         <div className="w-full md:w-1/2 p-4">
-          <h2 className="text-3xl font-bold mb-4">Help Desk</h2>
-          <p className="text-gray-700 mb-2"><strong>Office Hours</strong></p>
+          <h2 className="text-3xl text-gray-500 font-bold mb-4">Help Desk</h2>
+          <p className="text-gray-500 mb-2"><strong>Office Hours</strong></p>
           <p>Monday - Sunday <br />9:00 am to 8:00 pm</p>
           <div className="bg-white p-4 mt-4 shadow-lg rounded-lg">
             <p className="font-semibold">Headquarter</p>
