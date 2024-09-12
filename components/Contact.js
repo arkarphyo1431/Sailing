@@ -1,7 +1,7 @@
 'use client'; // Required for Next.js 13+ with client components
 
 import React from 'react';
-import Navbar from '../components/Navbar'; // Make sure to import your Navbar component
+import Navbar from '../components/Navbar';
 
 export default function Contact() {
   return (
