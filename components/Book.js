@@ -1,12 +1,22 @@
-'use client'; // Make sure to include this line for Next.js 13+ with client components
+'use client'; // Required for Next.js 13+ with client components
 
 import React from 'react';
+import Navbar from '../components/Navbar'; // Make sure to import your Navbar component
 
 export default function Book() {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center pt-6">
-      <h1 className="text-4xl font-bold mb-6">Book Your Cruise</h1>
-      <form className="w-full max-w-lg bg-white p-8 rounded shadow-md">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
+      {/* Navbar and Header Section */}
+      <header className="w-full relative">
+        <div className="bg-cover bg-center h-64 w-full relative" style={{ backgroundImage: `url('/header-image.jpg')` }}>
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
+            <h1 className="text-5xl font-bold text-white">Book Your Cruise</h1>
+          </div>
+        </div>
+      </header>
+
+      {/* Booking Form Section */}
+      <div className="w-full max-w-lg bg-white p-8 rounded shadow-md mt-6">
         {/* First Name */}
         <div className="mb-4">
           <label htmlFor="firstName" className="block text-gray-700 font-bold mb-2">First Name</label>
@@ -45,7 +55,7 @@ export default function Book() {
         <div className="flex justify-end">
           <button type="submit" className="bg-yellow-500 text-white py-2 px-6 rounded hover:bg-yellow-600">Book Now</button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }
