@@ -11,12 +11,13 @@ export default function Navbar() {
           </div>
         </div>
         <ul className="flex space-x-6 font-sans">
-          <li><Link href="/" className="hover:underline">HOME</Link></li>
-          <li><Link href="/book" className="hover:underline">BOOK</Link></li>
-          <li><Link href="/your_info" className="hover:underline">YOUR INFO</Link></li>
-          <li><Link href="/your_info" className="hover:underline">NEWS & PROMOTIONS</Link></li>
-          <li><Link href="/about" className="hover:underline">ABOUT</Link></li>
-          <li><Link href="/contact" className="hover:underline">CONTACT</Link></li>
+          <li><Link href="/" className="hover:text-yellow-500">HOME</Link></li>
+          <li><Link href="/book" className="hover:text-yellow-500">BOOK</Link></li>
+          <li><Link href="/your_info" className="hover:text-yellow-500">YOUR INFO</Link></li>
+          <li><Link href="/your_info" className="hover:text-yellow-500">NEWS & PROMOTIONS</Link></li>
+          <li><Link href="/about" className="hover:text-yellow-500">ABOUT</Link></li>
+          <li><Link href="/contact" className="hover:text-yellow-500">CONTACT</Link></li>
+          <Link href="/cart" className="text-white hover:text-yellow-500">CART</Link>
         </ul>
       </div>
     </nav>
