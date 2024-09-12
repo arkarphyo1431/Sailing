@@ -4,9 +4,9 @@ import React from 'react';
 
 export default function Book() {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center">
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center">
       {/* Header Section */}
-      <header className="bg-cover bg-center h-64 w-full relative mb-8" style={{ backgroundImage: `url('/header-image02.jpg')` }}>
+      <header className="bg-cover bg-center h-64 w-full relative mb-8" style={{ backgroundImage: `url('/cruise-image.jpg')` }}>
         <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <h1 className="text-5xl font-bold text-white">Tickets</h1>
         </div>
