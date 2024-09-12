@@ -1,12 +1,11 @@
-import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import React from 'react'
+import Navbar from '@/components/Navbar'
 
 export default function page() {
   return (
     <div>
         <Navbar />
-        <h1> About </h1>
+        <h1> News & Promo </h1>
         <Footer />
     </div>
   )
