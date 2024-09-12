@@ -6,7 +6,7 @@ export default function Book() {
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       {/* Header Section */}
-      <header className="bg-cover bg-center h-64 w-full relative mb-8" style={{ backgroundImage: `url('/header-image.jpg')` }}>
+      <header className="bg-cover bg-center h-64 w-full relative mb-8" style={{ backgroundImage: `url('/header-image02.jpg')` }}>
         <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <h1 className="text-5xl font-bold text-white">Tickets</h1>
         </div>
@@ -18,7 +18,7 @@ export default function Book() {
         <div className="flex-1 grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Cruise Card 1 */}
           <div className="bg-white p-4 rounded shadow-md">
-            <img src="/cruise1.jpg" alt="Cruise 1" className="rounded mb-4" />
+            <img src="/header-image01.jpg" alt="Cruise 1" className="rounded mb-4" />
             <h2 className="text-xl font-bold mb-2">[NEW YEAR'S EVE] – Dinner Cruise at Terminal 21 (Rama 3)</h2>
             <p className="text-gray-700">Price: $80.00 - $5,500.00</p>
             <p className="text-gray-700">Location: Terminal 21</p>
@@ -29,7 +29,7 @@ export default function Book() {
 
           {/* Cruise Card 2 */}
           <div className="bg-white p-4 rounded shadow-md">
-            <img src="/cruise2.jpg" alt="Cruise 2" className="rounded mb-4" />
+            <img src="/header-image02.jpg" alt="Cruise 2" className="rounded mb-4" />
             <h2 className="text-xl font-bold mb-2">Dinner Cruise at ICONSIAM Pier</h2>
             <p className="text-gray-700">Price: $80.00 - $1,800.00</p>
             <p className="text-gray-700">Location: ICONSIAM Pier</p>
@@ -40,7 +40,7 @@ export default function Book() {
 
           {/* Cruise Card 3 */}
           <div className="bg-white p-4 rounded shadow-md">
-            <img src="/cruise3.jpg" alt="Cruise 3" className="rounded mb-4" />
+            <img src="/header-image.webp" alt="Cruise 3" className="rounded mb-4" />
             <h2 className="text-xl font-bold mb-2">Sunset Cruise at Chao Phraya River</h2>
             <p className="text-gray-700">Price: $120.00 - $2,200.00</p>
             <p className="text-gray-700">Location: Chao Phraya River</p>

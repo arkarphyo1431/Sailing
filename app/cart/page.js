@@ -6,7 +6,7 @@ export default function page() {
     <div>
         <Navbar />
         <h1> Cart </h1>
-        <Footer />
+        
     </div>
   )
 }

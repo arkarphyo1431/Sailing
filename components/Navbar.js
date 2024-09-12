@@ -17,7 +17,7 @@ export default function Navbar() {
           <li><Link href="/your_info" className="hover:text-yellow-500">NEWS & PROMOTIONS</Link></li>
           <li><Link href="/about" className="hover:text-yellow-500">ABOUT</Link></li>
           <li><Link href="/contact" className="hover:text-yellow-500">CONTACT</Link></li>
-          <Link href="/cart" className="text-white hover:text-yellow-500">CART</Link>
+          <li><Link href="/cart" className="text-white hover:text-yellow-500">CART</Link></li>
         </ul>
       </div>
     </nav>

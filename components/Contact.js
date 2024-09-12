@@ -8,7 +8,7 @@ export default function Contact() {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       {/* Navbar and Header Section */}
       <header className="w-full relative">
-        <div className="bg-cover bg-center h-64 w-full relative" style={{ backgroundImage: `url('/header-image.jpg')` }}>
+        <div className="bg-cover bg-center h-64 w-full relative" style={{ backgroundImage: `url('/header-image02.jpg')` }}>
           <div className="absolute inset-0 bg-black bg-opacity-50 flex justify-center items-center">
             <h1 className="text-5xl font-bold text-white">CONTACT US</h1>
           </div>
