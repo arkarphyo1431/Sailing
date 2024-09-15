@@ -69,7 +69,7 @@ export default function Book() {
           {/* Cruise Card 3 */}
           <div className="flex border p-8 rounded shadow-md bg-opacity-60 bg-white">
             <img
-              src="/header-image03.jpg"
+              src="/header-image.webp"
               alt="Cruise 3"
               className="rounded w-1/2 h-64 object-cover mr-8"
             />
