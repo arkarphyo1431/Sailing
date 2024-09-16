@@ -22,46 +22,50 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Featured Sections */}
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <section className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4 text-black">Select Your Cruise Experience</h2>
-          <p className="text-lg text-black mb-6">Choose from our delightful dinner cruises for a memorable evening.</p>
-        </section>
+      {/* Section Heading */}
+      <section className="text-center py-10 bg-white">
+        <h2 className="text-4xl font-semibold text-gray-800">Chao Phraya River</h2>
+        <p className="text-2xl text-gray-600 mt-2">Experience the beauty of the Chao Phraya River on our cruise, where a special night is waiting for you.</p>
+      </section>
 
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Cruise Card 1 */}
-          <Link href="/booking?cruise=new_years_eve" className="bg-white shadow-lg p-6 rounded-lg hover:shadow-2xl">
-            <Image src="/header-image01.jpg" alt="New Year's Eve Cruise" width={400} height={300} className="rounded-t-lg" />
-            <h3 className="text-2xl font-bold mt-4 text-black">New Year's Eve Dinner Cruise</h3>
-            <p className="mt-2 text-gray-600">Join us for a spectacular New Year's Eve celebration with dinner at Terminal 21 (Rama 3).</p>
-            <p className="mt-2 text-gray-600">Price: $80.00 - $5,500.00</p>
-            <p className="mt-2 text-gray-600">Duration: 2 hours</p>
-            <p className="mt-2 text-gray-600">Direction: Rama 3 Pier to Main City</p>
-          </Link>
+      {/* Four Images Section */}
+      <section className="container mx-auto px-4 py-8 cursor-pointer">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+          {/* Image 1 */}
+          <div className="relative group">
+            <Image src="/cruise-image01.jpeg" alt="Cruise" width={300} height={300} className="w-full h-full rounded-lg object-cover" />
+            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 rounded-b-lg">
+              <h3 className="text-white text-lg font-bold text-center">Cruise</h3>
+            </div>
+          </div>
 
-          {/* Cruise Card 2 */}
-          <Link href="/booking?cruise=iconsiam" className="bg-white shadow-lg p-6 rounded-lg hover:shadow-2xl">
-            <Image src="/header-image02.jpg" alt="ICONSIAM Dinner Cruise" width={400} height={300} className="rounded-t-lg" />
-            <h3 className="text-2xl font-bold mt-4 text-black">Dinner Cruise at ICONSIAM Pier</h3>
-            <p className="mt-2 text-gray-600">Enjoy a fine dining experience with stunning views at ICONSIAM Pier.</p>
-            <p className="mt-2 text-gray-600">Price: $80.00 - $1,800.00</p>
-            <p className="mt-2 text-gray-600">Duration: 1.5 hours</p>
-            <p className="mt-2 text-gray-600">Direction: ICONSIAM Pier to Downtown</p>
-          </Link>
+          {/* Image 2 */}
+          <div className="relative group">
+            <Image src="/landmark-image.jpeg" alt="Landmarks" width={300} height={300} className="w-full h-full rounded-lg object-cover" />
+            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 rounded-b-lg">
+              <h3 className="text-white text-lg font-bold text-center">Landmarks</h3>
+            </div>
+          </div>
 
-          {/* Cruise Card 3 */}
-          <Link href="/booking?cruise=asiatique" className="bg-white shadow-lg p-6 rounded-lg hover:shadow-2xl">
-            <Image src="/header-image.webp" alt="Asiatique Evening Cruise" width={400} height={300} className="rounded-t-lg" />
-            <h3 className="text-2xl font-bold mt-4 text-black">Evening Cruise at Asiatique Pier</h3>
-            <p className="mt-2 text-gray-600">Savor a delightful dinner and sunset views at Asiatique Pier.</p>
-            <p className="mt-2 text-gray-600">Price: $80.00 - $5,000.00</p>
-            <p className="mt-2 text-gray-600">Duration: 2 hours</p>
-            <p className="mt-2 text-gray-600">Direction: Asiatique Pier to Riverfront</p>
-          </Link>
-        </section>
-      </main>
+          {/* Image 3 */}
+          <div className="relative group">
+            <Image src="/food-image.jpg" alt="Food" width={300} height={300} className="w-full h-full rounded-lg object-cover" />
+            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 rounded-b-lg">
+              <h3 className="text-white text-lg font-bold text-center">Food</h3>
+            </div>
+          </div>
 
+          {/* Image 4 */}
+          <div className="relative group">
+            <Image src="/entertainment-image.jpeg" alt="Entertainment" width={300} height={300} className="w-full h-full rounded-lg object-cover" />
+            <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 p-2 rounded-b-lg">
+              <h3 className="text-white text-lg font-bold text-center">Entertainment</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer Section */}
       <Footer />
     </div>
   );
