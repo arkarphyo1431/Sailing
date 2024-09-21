@@ -14,7 +14,29 @@ export default function Booking() {
     cvv: '',
   });
 
-  // Cruise details data
+  const [availableTimes, setAvailableTimes] = useState([]);
+  const [availabilityChecked, setAvailabilityChecked] = useState(false);
+  const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
+  const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
+  const [bookedDates, setBookedDates] = useState([]); // Fetched from the API
+  const [existingBookings, setExistingBookings] = useState([]); // Store the booking data
+
+  const generateDates = (month, year) => {
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    return Array.from({ length: daysInMonth }, (_, i) => {
+      const date = new Date(year, month, i + 1);
+      const formattedDate = date.toISOString().split('T')[0];
+      const isAvailable = date.getDay() !== 0 && date.getDay() !== 6 && !bookedDates.includes(formattedDate);
+      return {
+        date: formattedDate,
+        isAvailable,
+        day: date.getDate(),
+      };
+    });
+  };
+
+  const availableDates = generateDates(currentMonth, currentYear);
+
   const cruises = {
     new_years_eve: {
       title: "[NEW YEAR'S EVE] – Dinner Cruise at Terminal 21 (Rama 3)",
@@ -22,7 +44,7 @@ export default function Booking() {
       location: "Terminal 21",
       duration: "2 hours",
       direction: "Rama 3 Pier to Main City",
-      image: "/header-image01.jpg"
+      image: "/header-image01.jpg",
     },
     iconsiam: {
       title: "Dinner Cruise at ICONSIAM Pier",
@@ -30,7 +52,7 @@ export default function Booking() {
       location: "ICONSIAM Pier",
       duration: "1.5 hours",
       direction: "ICONSIAM Pier to Downtown",
-      image: "/header-image02.jpg"
+      image: "/header-image02.jpg",
     },
     asiatique: {
       title: "Evening Cruise at Asiatique Pier",
@@ -38,27 +60,96 @@ export default function Booking() {
       location: "Asiatique Pier",
       duration: "2 hours",
       direction: "Asiatique Pier to Riverfront",
-      image: "/header-image03.jpg"
-    }
+      image: "/header-image03.jpg",
+    },
   };
 
-  // Extract the selected cruise from the query parameters
   const searchParams = useSearchParams();
   const selectedCruise = searchParams.get('cruise');
   const cruise = cruises[selectedCruise] || cruises.new_years_eve;
 
+  useEffect(() => {
+    // Fetch the existing bookings from the database
+    async function fetchBookings() {
+      try {
+        const response = await fetch('http://localhost:5000/api/bookings'); // Replace with your API endpoint
+        if (response.ok) {
+          const data = await response.json();
+          setExistingBookings(data);
+          setBookedDates(data.map(booking => booking.date)); // Extract booked dates
+        } else {
+          console.error('Failed to fetch bookings');
+        }
+      } catch (error) {
+        console.error('Error fetching bookings:', error);
+      }
+    }
+
+    fetchBookings();
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
+    setFormData((prevData) => ({
+      ...prevData,
       [name]: value,
-    });
+    }));
+
+    if (name === 'date') {
+      checkAvailability(value);
+    }
   };
 
-  const handleSubmit = (e) => {
+  const checkAvailability = (selectedDate) => {
+    const times = ['6:00 PM']; // Update this logic to fetch available times based on date
+    setAvailableTimes(times);
+    setAvailabilityChecked(true);
+  };
+
+  const handleDateClick = (date) => {
+    if (date.isAvailable) {
+      handleChange({ target: { name: 'date', value: date.date } });
+    }
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic, like calling an API
-    console.log('Form submitted', formData);
+    if (Object.values(formData).every(field => field)) {
+      try {
+        const response = await fetch('http://localhost:5000/api/bookings', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log('Booking successful:', data);
+
+        // Reset form after successful submission
+        setFormData({
+          email: '',
+          phone: '',
+          date: '',
+          time: '',
+          cardNumber: '',
+          expDate: '',
+          cvv: '',
+        });
+        alert('Booking successful!');
+
+      } catch (error) {
+        console.error('Error:', error);
+        alert('There was an issue with your booking. Please try again.');
+      }
+    } else {
+      alert('Please fill in all fields.');
+    }
   };
 
   return (
@@ -84,136 +175,178 @@ export default function Booking() {
           onSubmit={handleSubmit}
           className="bg-white p-8 shadow-md rounded-md w-1/2"
         >
-          {/* Email */}
+          {/* Date and Time Selection */}
           <div className="mb-6">
-            <label htmlFor="email" className="block text-black">
-              Email:
-            </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="mt-1 p-2 w-full border rounded text-black"
-            />
+            <h2 className="text-xl font-bold mb-4 text-black">Select Date and Time</h2>
+            <div className="mb-4 border rounded p-4 bg-gray-50">
+              {/* Month Header */}
+              <div className="flex justify-between items-center mb-4">
+                <button
+                  className={`text-blac hover:underline ${currentMonth === new Date().getMonth() && currentYear === new Date().getFullYear() ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  onClick={() => {
+                    if (currentMonth > 0) {
+                      setCurrentMonth(prev => prev - 1);
+                    } else {
+                      setCurrentMonth(11);
+                      setCurrentYear(prev => prev - 1);
+                    }
+                  }}
+                  type="button"
+                  disabled={currentMonth === new Date().getMonth() && currentYear === new Date().getFullYear()}
+                >
+                  Previous
+                </button>
+                <h3 className="text-lg font-semibold text-blue-700">
+                  {new Date(currentYear, currentMonth).toLocaleString('default', { month: 'long' })} {currentYear}
+                </h3>
+                <button
+                  className="text-blue-500 hover:underline"
+                  onClick={() => {
+                    if (currentMonth < 11) {
+                      setCurrentMonth(prev => prev + 1);
+                    } else {
+                      setCurrentMonth(0);
+                      setCurrentYear(prev => prev + 1);
+                    }
+                  }}
+                  type="button"
+                >
+                  Next
+                </button>
+              </div>
+              {/* Date Selection */}
+              <div className="grid grid-cols-7 gap-2">
+                {availableDates.map(({ date, isAvailable, day }) => (
+                  <div
+                    key={date}
+                    className={`flex items-center justify-center h-10 rounded 
+                      ${isAvailable ? 'bg-gray-500 cursor-pointer' : 'bg-red-200 text-red-500 cursor-not-allowed'}
+                      ${formData.date === date ? 'border-2 border-blue-500' : 'border'}
+                    `}
+                    onClick={() => handleDateClick({ date, isAvailable })}
+                  >
+                    {day}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {availabilityChecked && availableTimes.length > 0 && (
+              <div className="mb-4">
+                <h2 className="text-xl font-bold mb-4 text-black">Select Time</h2>
+                <div className="grid grid-cols-4 gap-2">
+                  {availableTimes.map((time) => (
+                    <div
+                      key={time}
+                      className={`flex items-center justify-center h-10 rounded 
+                        ${formData.time === time ? 'border-2 border-blue-500' : 'border'}
+                        bg-gray-500 cursor-pointer
+                      `}
+                      onClick={() => handleChange({ target: { name: 'time', value: time } })}
+                    >
+                      {time}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* Phone */}
+          {/* User Contact Information */}
           <div className="mb-6">
-            <label htmlFor="phone" className="block text-black">
-              Phone:
-            </label>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-              className="mt-1 p-2 w-full border rounded text-black"
-            />
+            <h2 className="text-xl font-bold mb-4 text-black">Contact Information</h2>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-black">Email</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full border rounded px-3 py-2"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="phone" className="block text-black">Phone</label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleChange}
+                className="w-full border rounded px-3 py-2"
+                required
+              />
+            </div>
           </div>
 
-          {/* Select Date */}
+          {/* Payment Information */}
           <div className="mb-6">
-            <label htmlFor="date" className="block text-black">
-              Select Date:
-            </label>
-            <input
-              type="date"
-              id="date"
-              name="date"
-              value={formData.date}
-              onChange={handleChange}
-              required
-              className="mt-1 p-2 w-full border rounded text-black"
-            />
-          </div>
-
-          {/* Select Time */}
-          <div className="mb-6">
-            <label htmlFor="time" className="block text-black">
-              Select Time:
-            </label>
-            <select
-              id="time"
-              name="time"
-              value={formData.time}
-              onChange={handleChange}
-              required
-              className="mt-1 p-2 w-full border rounded text-black"
-            >
-              <option value="">Choose a time</option>
-              <option value="6:00 PM">6:00 PM</option>
-              <option value="9:00 PM">9:00 PM</option>
-            </select>
-          </div>
-
-          {/* Payment Section */}
-          <h2 className="text-xl font-bold mb-4 text-black">Payment Information</h2>
-
-          {/* Card Number */}
-          <div className="mb-6">
-            <label htmlFor="cardNumber" className="block text-black">
-              Visa Card Number:
-            </label>
-            <input
-              type="text"
-              id="cardNumber"
-              name="cardNumber"
-              value={formData.cardNumber}
-              onChange={handleChange}
-              required
-              className="mt-1 p-2 w-full border rounded text-black"
-              maxLength="16"
-              placeholder="XXXX-XXXX-XXXX-XXXX"
-            />
-          </div>
-
-          {/* Expiry Date */}
-          <div className="mb-6">
-            <label htmlFor="expDate" className="block text-black">
-              Expiry Date (MM/YY):
-            </label>
-            <input
-              type="text"
-              id="expDate"
-              name="expDate"
-              value={formData.expDate}
-              onChange={handleChange}
-              required
-              className="mt-1 p-2 w-full border rounded text-black"
-              placeholder="MM/YY"
-            />
-          </div>
-
-          {/* CVV */}
-          <div className="mb-6">
-            <label htmlFor="cvv" className="block text-black">
-              CVV (3-digit number):
-            </label>
-            <input
-              type="text"
-              id="cvv"
-              name="cvv"
-              value={formData.cvv}
-              onChange={handleChange}
-              required
-              className="mt-1 p-2 w-full border rounded text-black"
-              maxLength="3"
-              placeholder="XXX"
-            />
+            <h2 className="text-xl font-bold mb-4 text-black">Payment Information</h2>
+            <div className="mb-4">
+              <label htmlFor="cardNumber" className="block text-black">Card Number</label>
+              <input
+                type="text"
+                id="cardNumber"
+                name="cardNumber"
+                value={formData.cardNumber}
+                onChange={handleChange}
+                className="w-full border rounded px-3 py-2"
+                required
+              />
+            </div>
+            <div className="flex space-x-4">
+              <div className="w-1/2">
+                <label htmlFor="expDate" className="block text-black">Expiration Date</label>
+                <input
+                  type="text"
+                  id="expDate"
+                  name="expDate"
+                  value={formData.expDate}
+                  onChange={handleChange}
+                  className="w-full border rounded px-3 py-2"
+                  required
+                />
+              </div>
+              <div className="w-1/2">
+                <label htmlFor="cvv" className="block text-black">CVV</label>
+                <input
+                  type="text"
+                  id="cvv"
+                  name="cvv"
+                  value={formData.cvv}
+                  onChange={handleChange}
+                  className="w-full border rounded px-3 py-2"
+                  required
+                />
+              </div>
+            </div>
           </div>
 
           <button
             type="submit"
-            className="bg-blue-500 text-white py-3 px-8 rounded hover:bg-blue-600 w-full"
+            className="w-full bg-blue-500 text-white font-bold py-2 rounded hover:bg-blue-600"
           >
-            Submit Booking
+            Book Now
           </button>
         </form>
+      </div>
+
+      {/* Existing Bookings */}
+      <div className="w-full max-w-4xl mt-8">
+        <h2 className="text-2xl font-bold mb-4 text-black">Existing Bookings</h2>
+        {existingBookings.length > 0 ? (
+          <ul className="list-disc ml-6">
+            {existingBookings.map((booking) => (
+              <li key={booking.id} className="text-gray-700 mb-2">
+                Date: {booking.date}, Time: {booking.time}, Email: {booking.email}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-gray-700">No bookings available.</p>
+        )}
       </div>
     </div>
   );
