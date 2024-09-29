@@ -1,7 +1,7 @@
-// pages/signUp.js (or .tsx if using TypeScript)
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SignUp from '@/components/SignUp';
+import { exportTraceState } from 'next/dist/trace';
 
 export default function SignUpPage() {
   return (
@@ -12,3 +12,4 @@ export default function SignUpPage() {
     </div>
   );
 }
+// exportTraceState

@@ -1,5 +1,4 @@
-// components/UserInfoPage.tsx
-'use client'; // Required for Next.js 13+ with client components
+'use client';
 
 import React, { useState } from 'react';
 
