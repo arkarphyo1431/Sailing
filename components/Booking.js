@@ -1,9 +1,9 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 
-export default function Booking() {
+function BookingComponent() {
   const [formData, setFormData] = useState({
     email: '',
     phone: '',
@@ -18,8 +18,8 @@ export default function Booking() {
   const [availabilityChecked, setAvailabilityChecked] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [bookedDates, setBookedDates] = useState([]); // No need to fetch from API
-  const [existingBookings] = useState([]); // Keep an empty array for frontend display
+  const [bookedDates, setBookedDates] = useState([]); 
+  const [existingBookings] = useState([]); 
 
   const generateDates = (month, year) => {
     const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -81,7 +81,7 @@ export default function Booking() {
   };
 
   const checkAvailability = (selectedDate) => {
-    const times = ['6:00 PM']; // Static time slots for demo
+    const times = ['6:00 PM']; 
     setAvailableTimes(times);
     setAvailabilityChecked(true);
   };
@@ -96,7 +96,6 @@ export default function Booking() {
     e.preventDefault();
     if (Object.values(formData).every((field) => field)) {
       alert('Booking successful!');
-      // Reset form after "successful" submission
       setFormData({
         email: '',
         phone: '',
@@ -115,7 +114,6 @@ export default function Booking() {
     <div className="min-h-screen bg-gray-100 flex flex-col items-center">
       <h1 className="text-4xl font-bold mb-8 mt-8 text-black">Complete Your Booking</h1>
       <div className="flex w-full max-w-4xl">
-        {/* Cruise Info */}
         <div className="w-1/2 pr-8">
           <img
             src={cruise.image}
@@ -129,16 +127,13 @@ export default function Booking() {
           <p className="text-lg text-gray-700">Direction: {cruise.direction}</p>
         </div>
 
-        {/* Booking Form */}
         <form
           onSubmit={handleSubmit}
           className="bg-white p-8 shadow-md rounded-md w-1/2"
         >
-          {/* Date and Time Selection */}
           <div className="mb-6">
             <h2 className="text-xl font-bold mb-4 text-black">Select Date and Time</h2>
             <div className="mb-4 border rounded p-4 bg-gray-50">
-              {/* Month Header */}
               <div className="flex justify-between items-center mb-4">
                 <button
                   className={`text-black hover:underline ${
@@ -177,7 +172,6 @@ export default function Booking() {
                   Next
                 </button>
               </div>
-              {/* Date Selection */}
               <div className="grid grid-cols-7 gap-2">
                 {availableDates.map(({ date, isAvailable, day }) => (
                   <div
@@ -215,7 +209,6 @@ export default function Booking() {
             )}
           </div>
 
-          {/* User Contact Information */}
           <div className="mb-6">
             <h2 className="text-xl font-bold mb-4 text-black">Contact Information</h2>
             <div className="mb-4">
@@ -244,7 +237,6 @@ export default function Booking() {
             </div>
           </div>
 
-          {/* Payment Information */}
           <div className="mb-6">
             <h2 className="text-xl font-bold mb-4 text-black">Payment Information</h2>
             <div className="mb-4">
@@ -296,7 +288,6 @@ export default function Booking() {
         </form>
       </div>
 
-      {/* Existing Bookings */}
       <div className="w-full max-w-4xl mt-8">
         <h2 className="text-2xl font-bold mb-4 text-black">Existing Bookings</h2>
         {existingBookings.length > 0 ? (
@@ -312,5 +303,13 @@ export default function Booking() {
         )}
       </div>
     </div>
+  );
+}
+
+export default function Booking() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <BookingComponent />
+    </Suspense>
   );
 }
