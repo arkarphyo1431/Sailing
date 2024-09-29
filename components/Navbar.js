@@ -18,7 +18,7 @@ export default function Navbar() {
           <li><Link href="/contact" className="hover:text-yellow-500">CONTACT</Link></li>
           <li>
             <Link
-              href="/sign-up"
+              href="/signUp"
               className="border-b border-gray-400 text-gray-100 hover:text-gray-300"
             >
               SIGN UP

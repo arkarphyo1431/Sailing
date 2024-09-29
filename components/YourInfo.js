@@ -6,44 +6,13 @@ import React, { useState } from 'react';
 export default function UserInfoPage() {
   // State to store user details
   const [user, setUser] = useState({
-    name: 'username',
-    email: 'username@example.com',
+    name: 'xxxxx',
+    email: 'xxxx@example.com',
     phone: '+123456789'
   });
 
   // Dummy data for upcoming events
   const upcomingEvents = [
-    {
-      id: 1,
-      title: "New Year's Eve Cruise",
-      date: 'December 31, 2024',
-      location: 'Terminal 21, Rama 3',
-    },
-    {
-      id: 2,
-      title: 'Sunset Dinner at ICONSIAM',
-      date: 'January 15, 2025',
-      location: 'ICONSIAM Pier',
-    },
-    {
-      id: 3,
-      title: 'Chao Phraya River Cruise',
-      date: 'February 20, 2025',
-      location: 'Chao Phraya River',
-    },
-    {
-      id: 4,
-      title: 'Test Event 4',
-      date: 'March 10, 2025',
-      location: 'Test Location 4',
-    },
-    {
-      id: 5,
-      title: 'Test Event 5',
-      date: 'April 5, 2025',
-      location: 'Test Location 5',
-    },
-    // ... More events as needed
   ];
 
   return (
