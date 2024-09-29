@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 export default function Booking() {
@@ -18,8 +18,8 @@ export default function Booking() {
   const [availabilityChecked, setAvailabilityChecked] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
-  const [bookedDates, setBookedDates] = useState([]); // Fetched from the API
-  const [existingBookings, setExistingBookings] = useState([]); // Store the booking data
+  const [bookedDates, setBookedDates] = useState([]); // No need to fetch from API
+  const [existingBookings] = useState([]); // Keep an empty array for frontend display
 
   const generateDates = (month, year) => {
     const daysInMonth = new Date(year, month + 1, 0).getDate();
@@ -68,26 +68,6 @@ export default function Booking() {
   const selectedCruise = searchParams.get('cruise');
   const cruise = cruises[selectedCruise] || cruises.new_years_eve;
 
-  useEffect(() => {
-    // Fetch the existing bookings from the database
-    async function fetchBookings() {
-      try {
-        const response = await fetch('http://localhost:5000/api/bookings'); // Replace with your API endpoint
-        if (response.ok) {
-          const data = await response.json();
-          setExistingBookings(data);
-          setBookedDates(data.map(booking => booking.date)); // Extract booked dates
-        } else {
-          console.error('Failed to fetch bookings');
-        }
-      } catch (error) {
-        console.error('Error fetching bookings:', error);
-      }
-    }
-
-    fetchBookings();
-  }, []);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -101,7 +81,7 @@ export default function Booking() {
   };
 
   const checkAvailability = (selectedDate) => {
-    const times = ['6:00 PM']; // Update this logic to fetch available times based on date
+    const times = ['6:00 PM']; // Static time slots for demo
     setAvailableTimes(times);
     setAvailabilityChecked(true);
   };
@@ -112,41 +92,20 @@ export default function Booking() {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (Object.values(formData).every(field => field)) {
-      try {
-        const response = await fetch('http://localhost:5000/api/bookings', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-
-        const data = await response.json();
-        console.log('Booking successful:', data);
-
-        // Reset form after successful submission
-        setFormData({
-          email: '',
-          phone: '',
-          date: '',
-          time: '',
-          cardNumber: '',
-          expDate: '',
-          cvv: '',
-        });
-        alert('Booking successful!');
-
-      } catch (error) {
-        console.error('Error:', error);
-        alert('There was an issue with your booking. Please try again.');
-      }
+    if (Object.values(formData).every((field) => field)) {
+      alert('Booking successful!');
+      // Reset form after "successful" submission
+      setFormData({
+        email: '',
+        phone: '',
+        date: '',
+        time: '',
+        cardNumber: '',
+        expDate: '',
+        cvv: '',
+      });
     } else {
       alert('Please fill in all fields.');
     }
@@ -182,13 +141,17 @@ export default function Booking() {
               {/* Month Header */}
               <div className="flex justify-between items-center mb-4">
                 <button
-                  className={`text-blac hover:underline ${currentMonth === new Date().getMonth() && currentYear === new Date().getFullYear() ? 'opacity-50 cursor-not-allowed' : ''}`}
+                  className={`text-black hover:underline ${
+                    currentMonth === new Date().getMonth() && currentYear === new Date().getFullYear()
+                      ? 'opacity-50 cursor-not-allowed'
+                      : ''
+                  }`}
                   onClick={() => {
                     if (currentMonth > 0) {
-                      setCurrentMonth(prev => prev - 1);
+                      setCurrentMonth((prev) => prev - 1);
                     } else {
                       setCurrentMonth(11);
-                      setCurrentYear(prev => prev - 1);
+                      setCurrentYear((prev) => prev - 1);
                     }
                   }}
                   type="button"
@@ -203,10 +166,10 @@ export default function Booking() {
                   className="text-blue-500 hover:underline"
                   onClick={() => {
                     if (currentMonth < 11) {
-                      setCurrentMonth(prev => prev + 1);
+                      setCurrentMonth((prev) => prev + 1);
                     } else {
                       setCurrentMonth(0);
-                      setCurrentYear(prev => prev + 1);
+                      setCurrentYear((prev) => prev + 1);
                     }
                   }}
                   type="button"
