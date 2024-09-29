@@ -1,6 +1,6 @@
-# Sailing
+# Cruise Dinner Buffet Booking Service
 
-A collaborative project for booking and managing sailing trips. This application allows users to select from various sailing options, check availability, and make secure bookings.
+A web application for booking and managing cruise dinner buffet experiences. The application allows users to select from various cruise options, check availability, and make secure bookings for a luxurious dinner experience on the water.
 
 ## Contributors
 
@@ -12,22 +12,28 @@ A collaborative project for booking and managing sailing trips. This application
 
 ## Features
 
-- Browse and select from multiple sailing destinations.
+- Browse and select from 3 available dinner cruises.
 - Check availability based on date and time.
 - Secure booking process with real-time validation.
-- View existing bookings.
+- View existing bookings for user reference.
+
+## Available Cruises
+
+1. **New Year's Eve Dinner Cruise** at Terminal 21 (Rama 3)
+2. **Dinner Cruise** at ICONSIAM Pier
+3. **Evening Cruise** at Asiatique Pier
 
 ## Pages
 
 ### Home Page
 
-The **Home Page** introduces the user to the available sailing trips. It contains options to explore trips, view pricing, and start a booking.
+The **Home Page** introduces the user to the available cruise dinner options. It contains options to explore cruises, view pricing, and start a booking.
 
 ![Home Page Screenshot](./public/Home.png)
 
 ### Booking Page
 
-The **Booking Page** allows users to choose their preferred sailing trip, select available dates, and proceed with the booking process.
+The **Booking Page** allows users to choose their preferred cruise, select available dates, and proceed with the booking process.
 
 ![Booking Page Screenshot](./public/booking.png)
 
@@ -43,10 +49,10 @@ Follow these steps to get the project running on your local machine:
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/sailing.git
+git clone https://github.com/your-username/cruise-dinner-booking.git
 
 # Navigate to the project directory
-cd sailing
+cd cruise-dinner-booking
 
 # Install dependencies
 npm install
